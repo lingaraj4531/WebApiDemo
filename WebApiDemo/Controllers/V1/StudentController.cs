@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiDemo.Models;
 using WebApiDemo.Services;
 
-namespace WebApiDemo.Controllers
+namespace WebApiDemo.Controllers.V1
 {
-    [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
     [ApiVersion("1.0")]
-    [ApiVersion("2.0")]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _service;
@@ -57,37 +56,28 @@ namespace WebApiDemo.Controllers
         }
 
         /// <summary>
-        /// V1 Delete Route: Hard Delete
-        /// URL Path: DELETE /api/v1/Student/{id}
-        /// </summary>
-        [HttpDelete("{id}")]
-        [MapToApiVersion("1.0")]
-        public async Task<IActionResult> DeleteV1(int id)
-        {
-            await _service.HardDeleteAsync(id);
-            return NoContent();
-        }
+       
 
         /// <summary>
         /// V2 Delete Route: Soft Delete Business Logic
         /// URL Path: DELETE /api/v2/Student/{id}
-        /// </summary>
-        [HttpDelete("{id}")]
-        [MapToApiVersion("2.0")]
-        public async Task<IActionResult> DeleteV2(int id)
-        {
-            var success = await _service.SoftDeleteAsync(id);
-            if (!success) return NotFound();
-
-            return Ok(new { message = "Student successfully archived via production soft-delete rules." });
-        }
-
+        ///// </summary>
         //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
+        //[MapToApiVersion("2.0")]
+        //public async Task<IActionResult> DeleteV2(int id)
         //{
-        //    await _service.DeleteAsync(id);
+        //    var success = await _service.SoftDeleteAsync(id);
+        //    if (!success) return NotFound();
 
-        //    return NoContent();
+        //    return Ok(new { message = "Student successfully archived via production soft-delete rules." });
         //}
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.DeleteAsync(id);
+
+            return NoContent();
+        }
     }
 }

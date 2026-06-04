@@ -42,15 +42,15 @@ namespace WebApiDemo.Services
         }
 
         // 💥 V1 Rule: Permanent Wipe
-        public async Task HardDeleteAsync(int id)
-        {
-            var student = await _context.Students.FindAsync(id);
-            if (student != null)
-            {
-                _context.Students.Remove(student);
-                await _context.SaveChangesAsync();
-            }
-        }
+        //public async Task HardDeleteAsync(int id)
+        //{
+        //    var student = await _context.Students.FindAsync(id);
+        //    if (student != null)
+        //    {
+        //        _context.Students.Remove(student);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
 
         // 🛡️ V2 Rule: Safe Archive (Soft Delete)
         public async Task<bool> SoftDeleteAsync(int id)
@@ -67,17 +67,17 @@ namespace WebApiDemo.Services
             await _context.SaveChangesAsync();
             return true;
         }
-        
-        //public async Task DeleteAsync(int id)
-        //{
-        //    var student = await _context.Students.FindAsync(id);
 
-        //    if (student != null)
-        //    {
-        //        _context.Students.Remove(student);
+        public async Task DeleteAsync(int id)
+        {
+            var student = await _context.Students.FindAsync(id);
 
-        //        await _context.SaveChangesAsync();
-        //    }
-        //}
+            if (student != null)
+            {
+                _context.Students.Remove(student);
+
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApiDemo.Models;
 using WebApiDemo.Services;
 
-namespace WebApiDemo.Controllers
+namespace WebApiDemo.Controllers.V1
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]

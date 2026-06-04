@@ -12,8 +12,8 @@ namespace WebApiDemo.Services
 
         Task UpdateAsync(Student student);
 
-       // Task DeleteAsync(int id);
+        Task DeleteAsync(int id);
         Task<bool> SoftDeleteAsync(int id);
-        Task HardDeleteAsync(int id);
+        //Task HardDeleteAsync(int id);
     }
 }
